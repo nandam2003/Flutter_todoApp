@@ -43,8 +43,12 @@ class DataBaseHelper {
   }
 
   Future<int> insert(Task task) async{
-     print('Data inserted');
-     return await _db.insert(tableName, task.toMap());
+     return await _db.insert(
+         tableName,
+       task.toMap(),
+       conflictAlgorithm: ConflictAlgorithm.replace,
+
+     );
   }
 
   Future<List<Map<String,dynamic>>> query() async{

@@ -1,10 +1,10 @@
 class Task{
   var id;
-  late String todo;
+  var todo;
   late bool isDone;
 
   Task();
-  Task.withTodo({required this.todo,required this.isDone});
+  Task.withTodo({required this.isDone});
 
   Map<String,dynamic> toMap(){
     Map<String,dynamic> map = {

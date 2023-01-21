@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async{
           Task task;
-          updateNav(title: 'Add New Todo', btn: 'Add', task:task = Task.withTodo(todo: '',isDone:false));
+          updateNav(title: 'Add New Todo', btn: 'Add', task:task = Task.withTodo(isDone:false));
         },
         backgroundColor: Colors.black54,
         child: const Icon(

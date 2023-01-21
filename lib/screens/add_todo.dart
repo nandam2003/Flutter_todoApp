@@ -12,7 +12,9 @@ class AddTodo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    textController.text = task.todo;
+    if(task.todo!=null) {
+      textController.text = task.todo;
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -29,7 +31,9 @@ class AddTodo extends StatelessWidget {
             ),
             ElevatedButton(
                   onPressed: () {
-                    _insert();
+                    if(textController.text !='') {
+                      _insert();
+                    }
                     Navigator.pop(context,true);
 
                   },
@@ -40,14 +44,13 @@ class AddTodo extends StatelessWidget {
       )
     );
   }
-  _insert(){
-    // task.id = 1;
-    task.todo = textController.text;
+  _insert()async{
+      task.todo = textController.text;
     DataBaseHelper dataBaseHelper = DataBaseHelper();
     if(task.id == null) {
-      dataBaseHelper.insert(task);
+      await dataBaseHelper.insert(task);
     }else{
-      dataBaseHelper.update(task);
+      await dataBaseHelper.update(task);
     }
   }
 }
