@@ -7,8 +7,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DataBaseHelper dataBaseHelper = DataBaseHelper();
   await dataBaseHelper.init();
-  // var a = await dataBaseHelper.query();
-  // print(a);
+  var a = await dataBaseHelper.query();
+  print(a);
   runApp(const MyApp());
 }
 
