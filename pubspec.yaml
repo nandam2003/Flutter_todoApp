@@ -40,6 +40,12 @@ dependencies:
   path_provider: ^2.0.11
   loading_animation_widget: ^1.2.0+4
   flutter_slidable: ^2.0.0
+  flutter_launcher_icons: ^0.12.0
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/tick.png"  
 
 dev_dependencies:
   flutter_test:
@@ -64,8 +70,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #    - asserts/
+assets:
+     - assets/tick.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
