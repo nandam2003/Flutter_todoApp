@@ -1,8 +1,11 @@
-# flutter_application_1
+# Todo List
 
 A new Flutter project.
 
 ## Getting Started
+
+Download from [here](https://github.com/nandam2003/Flutter_todoApp/releases/download/v1.0.0/app-release.apk)
+
 
 This project is a starting point for a Flutter application.
 
