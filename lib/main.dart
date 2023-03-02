@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/data/task_data.dart';
 import 'package:flutter_application_1/screens/home.dart';
 import 'database/database_helper.dart';
 
@@ -13,7 +12,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-   const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -22,6 +21,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-

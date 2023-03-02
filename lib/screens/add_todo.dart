@@ -38,8 +38,8 @@ class AddTodo extends StatelessWidget {
         ),
         body: Column(
           children: [
-            const SizedBox(
-              height: 200,
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 4,
             ),
             Padding(
               padding: const EdgeInsets.all(30.0),
