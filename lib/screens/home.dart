@@ -35,37 +35,39 @@ class _HomeState extends State<Home> {
         elevation: 0,
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Welcome!',
-              style: TextStyle(
-                color: Color.fromARGB(255, 2, 46, 69),
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Welcome!',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 2, 46, 69),
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            const Text(
-              'TODAY\'S TASKS',
-              style: TextStyle(
-                color: Color.fromARGB(255, 141, 153, 159),
-                fontWeight: FontWeight.bold,
+              const SizedBox(
+                height: 25,
               ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Container(
-              color: Colors.grey[200],
-              child: populateListView(),
-            ),
-          ],
+              const Text(
+                'TODAY\'S TASKS',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 141, 153, 159),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Container(
+                color: Colors.grey[200],
+                child: populateListView(),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -92,64 +94,63 @@ class _HomeState extends State<Home> {
   }
 
   populateListView() {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: ListView.builder(
-          reverse: true,
-          shrinkWrap: true,
-          itemCount: count,
-          itemBuilder: (context, index) {
-            return Slidable(
-              endActionPane: ActionPane(motion: StretchMotion(), children: [
-                SlidableAction(
-                  onPressed: (context) async {
-                    await dataBaseHelper.delete(todoList[index]);
-                    await updateListView();
+    return ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        reverse: true,
+        shrinkWrap: true,
+        itemCount: count,
+        itemBuilder: (context, index) {
+          return Slidable(
+            endActionPane: ActionPane(motion: const StretchMotion(), children: [
+              SlidableAction(
+                onPressed: (context) async {
+                  await dataBaseHelper.delete(todoList[index]);
+                  await updateListView();
+                },
+                icon: Icons.delete,
+                backgroundColor: Colors.red.shade300,
+              )
+            ]),
+            child: Card(
+              color: Colors.white,
+              child: ListTile(
+                leading: IconButton(
+                  onPressed: () {
+                    todoList[index].isDone = !todoList[index].isDone;
+                    _isDone(done: todoList[index]);
                   },
-                  icon: Icons.delete,
-                  backgroundColor: Colors.red.shade300,
-                )
-              ]),
-              child: Card(
-                color: Colors.white,
-                child: ListTile(
-                  leading: IconButton(
-                    onPressed: () {
-                      todoList[index].isDone = !todoList[index].isDone;
-                      _isDone(done: todoList[index]);
-                    },
-                    icon: todoList[index].isDone
-                        ? const Icon(Icons.check_box)
-                        : const Icon(Icons.check_box_outline_blank),
-                  ),
-                  title: Text(
-                    todoList[index].todo,
-                    style: TextStyle(
-                      decoration: todoList[index].isDone
-                          ? TextDecoration.lineThrough
-                          : null,
-                    ),
-                  ),
-                  // trailing: todoList[index].isDone?IconButton(
-                  //   onPressed: () async {
-                  //     await dataBaseHelper.delete(todoList[index]);
-                  //     await updateListView();
-                  //   },
-                  //   icon: const Icon(Icons.delete),
-                  // ):null,
-                  onLongPress: () {
-                    updateNav(
-                      title: 'Update Todo',
-                      btn: 'Update',
-                      task: todoList[index],
-                      icons: false,
-                    );
-                  },
+                  icon: todoList[index].isDone
+                      ? const Icon(Icons.check_box)
+                      : const Icon(Icons.check_box_outline_blank),
                 ),
+                title: Text(
+                  todoList[index].todo,
+                  style: TextStyle(
+                    color: todoList[index].isDone ? Colors.grey : Colors.black,
+                    decoration: todoList[index].isDone
+                        ? TextDecoration.lineThrough
+                        : null,
+                  ),
+                ),
+                // trailing: todoList[index].isDone?IconButton(
+                //   onPressed: () async {
+                //     await dataBaseHelper.delete(todoList[index]);
+                //     await updateListView();
+                //   },
+                //   icon: const Icon(Icons.delete),
+                // ):null,
+                onLongPress: () {
+                  updateNav(
+                    title: 'Update Todo',
+                    btn: 'Update',
+                    task: todoList[index],
+                    icons: false,
+                  );
+                },
               ),
-            );
-          }),
-    );
+            ),
+          );
+        });
   }
 
   void updateNav(
