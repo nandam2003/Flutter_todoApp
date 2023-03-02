@@ -23,31 +23,62 @@ class _HomeState extends State<Home> {
       updateListView();
     }
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        systemOverlayStyle:
-            const SystemUiOverlayStyle(statusBarColor: Colors.black),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'ToDos',
-          style: TextStyle(color: Colors.white),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.menu,
+            color: Color.fromARGB(255, 2, 46, 69),
+          ),
+          onPressed: () {},
         ),
+        backgroundColor: Colors.grey[200],
         elevation: 0,
         centerTitle: true,
       ),
-      body: Container(
-        padding: const EdgeInsets.all(14),
-        color: Colors.black,
-        child: populateListView(),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Welcome!',
+              style: TextStyle(
+                color: Color.fromARGB(255, 2, 46, 69),
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            const Text(
+              'TODAY\'S TASKS',
+              style: TextStyle(
+                color: Color.fromARGB(255, 141, 153, 159),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Container(
+              color: Colors.grey[200],
+              child: populateListView(),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          Task task;
+        onPressed: () {
           updateNav(
-              title: 'Add New Todo',
-              btn: 'Add',
-              task: task = Task.withTodo(isDone: false));
+            title: 'Enter New Task',
+            btn: 'New Task',
+            task: Task.withTodo(isDone: false),
+            icons: true,
+          );
         },
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.blue,
         child: const Icon(Icons.add),
       ),
     );
@@ -81,9 +112,7 @@ class _HomeState extends State<Home> {
                 )
               ]),
               child: Card(
-                color: todoList[index].isDone
-                    ? Colors.lightGreenAccent
-                    : Colors.white,
+                color: Colors.white,
                 child: ListTile(
                   leading: IconButton(
                     onPressed: () {
@@ -111,9 +140,11 @@ class _HomeState extends State<Home> {
                   // ):null,
                   onLongPress: () {
                     updateNav(
-                        title: 'Update Todo',
-                        btn: 'update',
-                        task: todoList[index]);
+                      title: 'Update Todo',
+                      btn: 'Update',
+                      task: todoList[index],
+                      icons: false,
+                    );
                   },
                 ),
               ),
@@ -123,9 +154,17 @@ class _HomeState extends State<Home> {
   }
 
   void updateNav(
-      {required String title, required String btn, required Task task}) async {
+      {required String title,
+      required bool icons,
+      required String btn,
+      required Task task}) async {
     await Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return AddTodo(title: title, btn: btn, task: task);
+      return AddTodo(
+        title: title,
+        btn: btn,
+        task: task,
+        icons: icons,
+      );
     }));
     updateListView();
   }

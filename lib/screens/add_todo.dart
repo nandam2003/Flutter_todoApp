@@ -4,13 +4,18 @@ import 'package:flutter_application_1/data/task_data.dart';
 
 class AddTodo extends StatelessWidget {
   AddTodo(
-      {Key? key, required this.title, required this.btn, required this.task})
+      {Key? key,
+      required this.title,
+      required this.icons,
+      required this.btn,
+      required this.task})
       : super(key: key);
   Task task;
   var textController = TextEditingController();
   DataBaseHelper dataBaseHelper = DataBaseHelper();
   String title;
   String btn;
+  bool icons;
 
   @override
   Widget build(BuildContext context) {
@@ -19,33 +24,47 @@ class AddTodo extends StatelessWidget {
     }
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          backgroundColor: Colors.black,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              TextField(
-                controller: textController,
-                decoration: const InputDecoration(hintText: 'Enter Task to Do'),
-              ),
-              ElevatedButton(
+          actions: [
+            IconButton(
                 onPressed: () {
-                  if (textController.text.trim() != '') {
-                    _insert();
-                  }
-                  Navigator.pop(context, true);
+                  Navigator.pop(context);
                 },
-                child: Text(btn),
+                icon: const Icon(Icons.close)),
+          ],
+          automaticallyImplyLeading: false,
+          iconTheme: const IconThemeData(color: Colors.black),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: Column(
+          children: [
+            const SizedBox(
+              height: 200,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: TextField(
+                controller: textController,
+                autofocus: true,
+                decoration: InputDecoration(
+                    hintText: title,
+                    hintStyle: const TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18)),
               ),
-            ],
-          ),
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            if (textController.text.trim() != '') {
+              _insert();
+            }
+            Navigator.pop(context, true);
+          },
+          label: Text(btn),
+          icon: Icon(icons ? Icons.add : Icons.edit),
         ));
   }
 
