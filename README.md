@@ -4,7 +4,7 @@ A new Flutter project.
 
 ## Getting Started
 
-Download from release apk [v1.0.0](https://github.com/nandam2003/Flutter_todoApp/releases/download/v1.0.0/app-release.apk)
+Download release apk [v1.0.0](https://github.com/nandam2003/Flutter_todoApp/releases/download/v1.0.0/app-release.apk)
 
 This is a functional Todo app made with Flutter.
 
