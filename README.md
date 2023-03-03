@@ -12,9 +12,11 @@ For the local storage SQlite is used.
 
 With elegant looking UI.
 
+## Screenshots
+
 <div>
-<image width="150px" alt="home screen" src="https://raw.githubusercontent.com/nandam2003/Flutter_todoApp/master/screenshots/home.jpg">
-<image width="150px" alt="home screen" src="https://raw.githubusercontent.com/nandam2003/Flutter_todoApp/master/screenshots/new_todo.jpg">
-<image width="150px" alt="home screen" src="https://raw.githubusercontent.com/nandam2003/Flutter_todoApp/master/screenshots/update.jpg">
-<image width="150px" alt="home screen" src="https://raw.githubusercontent.com/nandam2003/Flutter_todoApp/master/screenshots/delete.jpg">
+<image width="200px" alt="home screen" src="https://raw.githubusercontent.com/nandam2003/Flutter_todoApp/master/screenshots/home.jpg">
+<image width="200px" alt="home screen" src="https://raw.githubusercontent.com/nandam2003/Flutter_todoApp/master/screenshots/new_todo.jpg">
+<image width="200px" alt="home screen" src="https://raw.githubusercontent.com/nandam2003/Flutter_todoApp/master/screenshots/update.jpg">
+<image width="200px" alt="home screen" src="https://raw.githubusercontent.com/nandam2003/Flutter_todoApp/master/screenshots/delete.jpg">
 </div>
