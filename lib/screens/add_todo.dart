@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/database/database_helper.dart';
+import 'package:flutter_application_1/services/database_helper.dart';
 import 'package:flutter_application_1/data/task_data.dart';
 
 class AddTodo extends StatelessWidget {
@@ -38,20 +38,20 @@ class AddTodo extends StatelessWidget {
         ),
         body: Column(
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 4,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: TextField(
-                controller: textController,
-                autofocus: true,
-                decoration: InputDecoration(
-                    hintText: title,
-                    hintStyle: const TextStyle(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18)),
+            Expanded(
+              child: Container(
+                alignment: const Alignment(0, -0.25),
+                padding: const EdgeInsets.all(16),
+                child: TextField(
+                  controller: textController,
+                  autofocus: true,
+                  decoration: InputDecoration(
+                      hintText: title,
+                      hintStyle: const TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18)),
+                ),
               ),
             ),
           ],

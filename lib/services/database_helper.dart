@@ -4,7 +4,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-
 class DataBaseHelper {
   String tableName = 'myTable';
   String columnid = 'id';
@@ -13,12 +12,12 @@ class DataBaseHelper {
 
   DataBaseHelper._createInstance();
 
-  static final DataBaseHelper _dataBaseHelper = DataBaseHelper._createInstance();
+  static final DataBaseHelper _dataBaseHelper =
+      DataBaseHelper._createInstance();
 
-  factory DataBaseHelper(){
+  factory DataBaseHelper() {
     return _dataBaseHelper;
   }
-
 
   late Database _db;
 
@@ -42,35 +41,39 @@ class DataBaseHelper {
           ''');
   }
 
-  Future<int> insert(Task task) async{
-     return await _db.insert(
-         tableName,
-       task.toMap(),
-       conflictAlgorithm: ConflictAlgorithm.replace,
-
-     );
+  Future<int> insert(Task task) async {
+    return await _db.insert(
+      tableName,
+      task.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
-  Future<List<Map<String,dynamic>>> query() async{
-    return await _db.query(tableName);
+  Future<List<Map<String, dynamic>>> query() async {
+    return await _db.query(tableName, orderBy: "$columnid DESC");
   }
 
-  Future<List<Task>> listOfTodoClass() async{
-    List<Map<String,dynamic>> listOfMap = await query();
+  Future<List<Task>> listOfTodoClass() async {
+    List<Map<String, dynamic>> listOfMap = await query();
     List<Task> listOfTask = [];
-    for(int i = 0;i<listOfMap.length;i++){
+    for (int i = 0; i < listOfMap.length; i++) {
       listOfTask.add(Task.formMap(listOfMap[i]));
     }
     return listOfTask;
-
   }
 
-  Future<int> update(Task task) async{
+  Future<int> update(Task task) async {
     int id = task.id;
-    return await _db.update(tableName, task.toMap(),where: '$columnid=?',whereArgs: [id]);
+    return await _db
+        .update(tableName, task.toMap(), where: '$columnid=?', whereArgs: [id]);
   }
 
-  Future<int> delete(Task task) async{
-    return await _db.delete(tableName,where: '$columnid=?',whereArgs: [task.id]);
+  Future<int> delete(Task task) async {
+    return await _db
+        .delete(tableName, where: '$columnid=?', whereArgs: [task.id]);
+  }
+
+  Future deleteAll() async {
+    await _db.delete(tableName);
   }
 }
