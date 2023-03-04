@@ -17,10 +17,14 @@ class _HomeState extends State<Home> {
   int count = 0;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    updateListView();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (todoList == null) {
-      updateListView();
-    }
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -35,39 +39,34 @@ class _HomeState extends State<Home> {
         elevation: 0,
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Welcome!',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 2, 46, 69),
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Welcome!',
+              style: TextStyle(
+                color: Color.fromARGB(255, 2, 46, 69),
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
               ),
-              const SizedBox(
-                height: 25,
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            const Text(
+              'TODAY\'S TASKS',
+              style: TextStyle(
+                color: Color.fromARGB(255, 141, 153, 159),
+                fontWeight: FontWeight.bold,
               ),
-              const Text(
-                'TODAY\'S TASKS',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 141, 153, 159),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Container(
-                color: Colors.grey[200],
-                child: populateListView(),
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            populateListView(),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -93,64 +92,74 @@ class _HomeState extends State<Home> {
     });
   }
 
-  populateListView() {
-    return ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        reverse: true,
-        shrinkWrap: true,
-        itemCount: count,
-        itemBuilder: (context, index) {
-          return Slidable(
-            endActionPane: ActionPane(motion: const StretchMotion(), children: [
-              SlidableAction(
-                onPressed: (context) async {
-                  await dataBaseHelper.delete(todoList[index]);
-                  await updateListView();
-                },
-                icon: Icons.delete,
-                backgroundColor: Colors.red.shade300,
-              )
-            ]),
-            child: Card(
-              color: Colors.white,
-              child: ListTile(
-                leading: IconButton(
-                  onPressed: () {
-                    todoList[index].isDone = !todoList[index].isDone;
-                    _isDone(done: todoList[index]);
+  Widget populateListView() {
+    return Expanded(
+      child: ListView.builder(
+          itemCount: count,
+          itemBuilder: (context, index) {
+            return Slidable(
+              endActionPane:
+                  ActionPane(motion: const StretchMotion(), children: [
+                SlidableAction(
+                  borderRadius: BorderRadius.circular(30),
+                  onPressed: (context) async {
+                    await dataBaseHelper.delete(todoList[index]);
+                    await updateListView();
                   },
-                  icon: todoList[index].isDone
-                      ? const Icon(Icons.check_box)
-                      : const Icon(Icons.check_box_outline_blank),
+                  icon: Icons.delete,
+                  backgroundColor: Colors.red.shade300,
+                )
+              ]),
+              child: Container(
+                height: 70,
+                margin: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
                 ),
-                title: Text(
-                  todoList[index].todo,
-                  style: TextStyle(
-                    color: todoList[index].isDone ? Colors.grey : Colors.black,
-                    decoration: todoList[index].isDone
-                        ? TextDecoration.lineThrough
-                        : null,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: ListTile(
+                    leading: IconButton(
+                      onPressed: () {
+                        todoList[index].isDone = !todoList[index].isDone;
+                        _isDone(done: todoList[index]);
+                      },
+                      icon: todoList[index].isDone
+                          ? const Icon(Icons.check_box)
+                          : const Icon(Icons.check_box_outline_blank),
+                    ),
+                    title: Text(
+                      todoList[index].todo,
+                      style: TextStyle(
+                        color:
+                            todoList[index].isDone ? Colors.grey : Colors.black,
+                        decoration: todoList[index].isDone
+                            ? TextDecoration.lineThrough
+                            : null,
+                      ),
+                    ),
+                    // trailing: todoList[index].isDone?IconButton(
+                    //   onPressed: () async {
+                    //     await dataBaseHelper.delete(todoList[index]);
+                    //     await updateListView();
+                    //   },
+                    //   icon: const Icon(Icons.delete),
+                    // ):null,
+                    onLongPress: () {
+                      updateNav(
+                        title: 'Update Todo',
+                        btn: 'Update',
+                        task: todoList[index],
+                        icons: false,
+                      );
+                    },
                   ),
                 ),
-                // trailing: todoList[index].isDone?IconButton(
-                //   onPressed: () async {
-                //     await dataBaseHelper.delete(todoList[index]);
-                //     await updateListView();
-                //   },
-                //   icon: const Icon(Icons.delete),
-                // ):null,
-                onLongPress: () {
-                  updateNav(
-                    title: 'Update Todo',
-                    btn: 'Update',
-                    task: todoList[index],
-                    icons: false,
-                  );
-                },
               ),
-            ),
-          );
-        });
+            );
+          }),
+    );
   }
 
   void updateNav(
