@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/database/database_helper.dart';
+import 'package:flutter_application_1/services/database_helper.dart';
 import 'package:flutter_application_1/data/task_data.dart';
 
 class AddTodo extends StatelessWidget {
@@ -40,7 +40,7 @@ class AddTodo extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                alignment: Alignment(0, -0.25),
+                alignment: const Alignment(0, -0.25),
                 padding: const EdgeInsets.all(16),
                 child: TextField(
                   controller: textController,

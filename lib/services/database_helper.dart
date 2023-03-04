@@ -72,4 +72,8 @@ class DataBaseHelper {
     return await _db
         .delete(tableName, where: '$columnid=?', whereArgs: [task.id]);
   }
+
+  Future deleteAll() async {
+    await _db.delete(tableName);
+  }
 }
