@@ -15,7 +15,6 @@ Icon?
 profile
 xcuserdata
 **/.generated/
-firebase_app_id_file.json
 Flutter/App.framework
 Flutter/Flutter.framework
 Flutter/Flutter.podspec
@@ -27,6 +26,8 @@ Flutter/flutter_assets/
 Flutter/flutter_export_environment.sh
 ServiceDefinitions.json
 Runner/GeneratedPluginRegistrant.*
+Runner/GoogleService_Info.plist
+
 
 
 
