@@ -36,25 +36,43 @@ class AddTodo extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: Container(
-                alignment: const Alignment(0, -0.25),
-                padding: const EdgeInsets.all(16),
-                child: TextField(
-                  controller: textController,
-                  autofocus: true,
-                  decoration: InputDecoration(
-                      hintText: title,
-                      hintStyle: const TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18)),
-                ),
+        body: Container(
+          alignment: const Alignment(0, -0.25),
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: textController,
+                autofocus: true,
+                decoration: InputDecoration(
+                    hintText: title,
+                    hintStyle: const TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18)),
               ),
-            ),
-          ],
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: 120,
+                  margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.grey[300],
+                  ),
+                  child: Row(
+                    children: const [
+                      Icon(Icons.alarm),
+                      Text('set remainder'),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
